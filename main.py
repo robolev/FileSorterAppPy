@@ -37,10 +37,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def move_files_to_matching_dirs(self, root_directory, all_files, all_dirs):
         for file_path in all_files:
             file_name, _ = os.path.splitext(os.path.basename(file_path))
+            file_name = file_name.split('_')[0]  
             found_matching_dir = False
 
             for dir_path in all_dirs:
                 dir_name = os.path.basename(dir_path)
+                dir_name = dir_name.split('_')[0]  
                 if file_name == dir_name:
                     new_file_path = os.path.join(dir_path, os.path.basename(file_path))
                     os.rename(file_path, new_file_path)
