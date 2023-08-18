@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import os
 
+from PySide6 import QtGui
 ################################################################################
 ## Form generated from reading UI file 'FileSortingApp.ui'
 ##
@@ -38,7 +40,7 @@ class Ui_Dialog(object):
         Dialog.setAcceptDrops(False)
         self.lineEdit = QLineEdit(Dialog)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(80, 140, 171, 22))
+        self.lineEdit.setGeometry(QRect(80, 141, 171, 22))
         self.pushButton = QPushButton(Dialog)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(260, 140, 41, 24))
@@ -57,6 +59,14 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setItalic(True)
         self.label.setFont(font)
+        self.label_image = QLabel(Dialog)
+        self.label_image.setGeometry(QRect(30, -1, 370, 150)) 
+        self.label_image.setScaledContents(True)
+        icon_path = os.path.join(os.getcwd(), 'Assets', 'ButtonPurple.png')  
+        icon = QIcon(icon_path)
+        self.pushButton.setIcon(icon)
+        self.pushButton.setIconSize(QSize(32, 32))
+        self.pushButton.setStyleSheet("background-color: transparent; border: none;")
 
         self.retranslateUi(Dialog)
 
@@ -64,5 +74,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"ok", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"File Sorter App", None))
+        self.pushButton.setText(QCoreApplication.translate("Dialog", None))
+        icon1_path = os.path.join(os.getcwd(), 'Assets', 'logo.png')  
+        pixmap = QPixmap(icon1_path)
+        self.label_image.setPixmap(pixmap)
+
+        QMetaObject.connectSlotsByName(Dialog)
