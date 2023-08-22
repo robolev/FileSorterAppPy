@@ -13,6 +13,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.pushButton.clicked.connect(self.sort_files)
+        self.ui.pushButton_2.clicked.connect(self.set_backup_directory)
+        self.ui.pushButton_3.clicked.connect(self.copy_files_to_backup)
+
+        self.backup_directory = ""
 
     def sort_files(self):
         root_directory = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Root Directory")
@@ -37,12 +41,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def move_files_to_matching_dirs(self, root_directory, all_files, all_dirs):
         for file_path in all_files:
             file_name, _ = os.path.splitext(os.path.basename(file_path))
-            file_name = file_name.split('_')[0]  
+            file_name = file_name.split('_')[0]
             found_matching_dir = False
 
             for dir_path in all_dirs:
                 dir_name = os.path.basename(dir_path)
-                dir_name = dir_name.split('_')[0]  
+                dir_name = dir_name.split('_')[0]
                 if file_name == dir_name:
                     new_file_path = os.path.join(dir_path, os.path.basename(file_path))
                     os.rename(file_path, new_file_path)
@@ -54,6 +58,27 @@ class MainWindow(QtWidgets.QMainWindow):
                 os.makedirs(new_dir_path, exist_ok=True)
                 new_file_path = os.path.join(new_dir_path, os.path.basename(file_path))
                 os.rename(file_path, new_file_path)
+
+    def set_backup_directory(self):
+        self.backup_directory = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Backup Directory")
+
+    def copy_files_to_backup(self):
+        if not self.backup_directory:
+            self.ui.lineEdit_2.setText("Please set the backup directory first.")
+            return
+
+        root_directory = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Root Directory for Copying")
+
+        if root_directory:
+            self.ui.lineEdit_3.setText("Copying files to backup directory...")
+
+            all_files, _ = self.collect_files_and_dirs(root_directory)
+
+            for file_path in all_files:
+                new_file_path = os.path.join(self.backup_directory, os.path.basename(file_path))
+                os.rename(file_path, new_file_path)
+
+            self.ui.lineEdit_3.setText("Copying completed.")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
