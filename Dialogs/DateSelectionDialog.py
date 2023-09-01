@@ -4,11 +4,14 @@ from PySide6 import QtWidgets
 import CalendarDialog
 from FileSorter import FileSorter
 import pandas as pd
+import FileSortingUI
 
 class DateSelectionDialog(QtWidgets.QDialog):
     def __init__(self, backup_directory, root_directory):
         super(DateSelectionDialog, self).__init__()
-
+        
+        self.ui = FileSortingUI.Ui_Dialog()
+        
         self.date_list = None
         self.backup_directory = backup_directory
         self.root_directory = root_directory  
@@ -43,8 +46,7 @@ class DateSelectionDialog(QtWidgets.QDialog):
         else:
             print('No date range is selected')
 
-   
-        
     def call_copy_files(self):
         FileSorter.copy_files(self.root_directory, self.backup_directory)
+        self.ui.lineEdit_3.setText("Copy Complete")
         self.accept()

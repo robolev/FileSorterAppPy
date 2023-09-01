@@ -46,4 +46,4 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if root_directory:
             date_selection_dialog = DateSelectionDialog(self.backup_directory, root_directory)
-            date_selection_dialog.exec()  
+            date_selection_dialog.exec()
