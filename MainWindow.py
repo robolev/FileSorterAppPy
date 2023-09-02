@@ -1,14 +1,14 @@
 ﻿from PySide6 import QtWidgets, QtCore
-import FileSortingUI
-from DateSelectionDialog import DateSelectionDialog
-from FileSorter import FileSorter
+import UI.FileSortingUI
+from Dialogs.DateSelectionDialog import DateSelectionDialog
+from ProgramLogic.FileSorter import FileSorter
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.thread_pool = QtCore.QThreadPool.globalInstance()
 
-        self.ui = FileSortingUI.Ui_Dialog()
+        self.ui = UI.FileSortingUI.Ui_Dialog()
         self.ui.setupUi(self)
 
         self.ui.pushButton.clicked.connect(self.sort_files)

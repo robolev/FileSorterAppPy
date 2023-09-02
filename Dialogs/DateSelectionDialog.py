@@ -1,16 +1,15 @@
-﻿import  sys
-from PySide6 import QtWidgets
+﻿from PySide6 import QtWidgets
 
-import CalendarDialog
-from FileSorter import FileSorter
+import Dialogs.CalendarDialog
+from ProgramLogic.FileSorter import FileSorter
 import pandas as pd
-import FileSortingUI
+import UI.FileSortingUI
 
 class DateSelectionDialog(QtWidgets.QDialog):
     def __init__(self, backup_directory, root_directory):
         super(DateSelectionDialog, self).__init__()
         
-        self.ui = FileSortingUI.Ui_Dialog()
+        self.ui = UI.FileSortingUI.Ui_Dialog()
         
         self.date_list = None
         self.backup_directory = backup_directory
@@ -19,7 +18,7 @@ class DateSelectionDialog(QtWidgets.QDialog):
         self.copyDateButton = QtWidgets.QPushButton("Copy Files with Special Date")
         self.copyAllButton = QtWidgets.QPushButton("Copy All Files")
         self.textLabel = QtWidgets.QLabel("Do you want to copy files with a special date or copy all files?")
-        self.calendar = CalendarDialog.CalenderX()
+        self.calendar = Dialogs.CalendarDialog.CalenderX()
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.textLabel)
         layout.addWidget(self.copyDateButton)
